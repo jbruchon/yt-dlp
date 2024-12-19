@@ -4364,7 +4364,7 @@ class YoutubeDL:
                 try:
                     # Use newline='' to prevent conversion of newline characters
                     # See https://github.com/ytdl-org/youtube-dl/issues/10268
-                    with open(sub_filename, 'w', encoding='utf-8', newline='') as subfile:
+                    with open(sub_filename, 'w', encoding='utf-8', newline='', buffering=65536) as subfile:
                         subfile.write(sub_info['data'])
                     sub_info['filepath'] = sub_filename
                     ret.append((sub_filename, sub_filename_final))
@@ -4427,7 +4427,7 @@ class YoutubeDL:
                 try:
                     uf = self.urlopen(Request(t['url'], headers=t.get('http_headers', {})))
                     self.to_screen(f'[info] Writing {thumb_display_id} to: {thumb_filename}')
-                    with open(thumb_filename, 'wb') as thumbf:
+                    with open(thumb_filename, 'wb', buffering=65536) as thumbf:
                         shutil.copyfileobj(uf, thumbf)
                     ret.append((thumb_filename, thumb_filename_final))
                     t['filepath'] = thumb_filename
