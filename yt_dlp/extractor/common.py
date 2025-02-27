@@ -1060,7 +1060,7 @@ class InfoExtractor:
                 urlh.url, video_id, data,
                 trim_length=self.get_param('trim_file_name'))
             self.to_screen(f'Saving request to {filename}')
-            with open(filename, 'wb', buffering=65536) as outf:
+            with open(filename, 'wb', buffering=1048576) as outf:
                 outf.write(webpage_bytes)
 
         content = self.__decode_webpage(webpage_bytes, encoding, urlh.headers)
