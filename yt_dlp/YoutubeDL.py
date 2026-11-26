@@ -4564,7 +4564,7 @@ class YoutubeDL:
                     uf = self.urlopen(Request(t['url'], headers=t.get('http_headers', {})))
                     self.to_screen(f'[info] Writing {thumb_display_id} to: {thumb_filename}')
                     with open(thumb_filename, 'wb', buffering=1048576) as thumbf:
-                        shutil.copyfileobj(uf, thumbf)
+                        shutil.copyfileobj(uf, thumbf, 1048576)
                     ret.append((thumb_filename, thumb_filename_final))
                     t['filepath'] = thumb_filename
                 except network_exceptions as err:
