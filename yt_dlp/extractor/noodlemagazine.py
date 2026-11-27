@@ -12,7 +12,7 @@ from ..utils.traversal import traverse_obj
 class NoodleMagazineIE(InfoExtractor):
     _VALID_URL = r'https?://(?:(?:www|adult\.)?noodlemagazine\.com|(?:www\.)?exporntoons\.net)/watch/(?P<id>[0-9_-]+)'
     _TESTS = [{
-    'url': 'https://adult.noodlemagazine.com/watch/-67421364_456239604',
+        'url': 'https://adult.noodlemagazine.com/watch/-67421364_456239604',
         'md5': '0e68515affb627834092bab04a5d1fcd',
         'info_dict': {
             'id': '-67421364_456239604',
@@ -26,9 +26,8 @@ class NoodleMagazineIE(InfoExtractor):
             'tags': ['aria', 'alexander', 'manojob'],
             'upload_date': '20190218',
             'age_limit': 18,
-            },
         },
-    {
+    }, {
         'url': 'https://exporntoons.net/watch/-67421364_456239604',
         'md5': '0e68515affb627834092bab04a5d1fcd',
         'info_dict': {
@@ -43,9 +42,8 @@ class NoodleMagazineIE(InfoExtractor):
             'tags': ['aria', 'alexander', 'manojob'],
             'upload_date': '20190218',
             'age_limit': 18,
-            },
         },
-    ]
+    }]
 
     def _real_extract(self, url):
         video_id = self._match_id(url)
