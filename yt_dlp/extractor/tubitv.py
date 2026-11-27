@@ -84,7 +84,7 @@ class TubiTvBaseIE(InfoExtractor):
         algo = 'TUBI-HMAC-SHA256'
         payload_hash = self.sha256_hex(payload)
         canonical_hash = self.sha256_hex(f'POST\n{path}\n\ncontent-type:application/json\n\n{self._SIGNED_HEADERS}\n{payload_hash}')
-        ts = dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+        ts = dt.datetime.now(dt.UTC).strftime('%Y%m%dT%H%M%SZ')
         ket_data = b'TUBI' + base64.b64decode(key)
         signature = self._hmac_sha256(
             self._hmac_sha256(
