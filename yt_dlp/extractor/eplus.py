@@ -89,6 +89,7 @@ class EplusIbIE(InfoExtractor):
             'No video formats found!',
             'Requested format is not available',
         ],
+        'skip': 'Requires login',
     }, {
         'url': 'https://live.eplus.jp/3702458?show_id=3702558',
         'info_dict': {

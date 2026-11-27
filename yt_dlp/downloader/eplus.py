@@ -24,8 +24,6 @@ class EplusFD(HlsFD):
 
     def real_download(self, filename, info_dict):
         self.to_screen(f'[{self.FD_NAME}] Downloading Streaming+ HLS')
-        # External downloaders receive the cookies only once, when they start
-        self.params = {**self.params, 'external_downloader': 'native'}
         self._auth_lock = threading.Lock()
         self._last_refresh = time.monotonic()
         self._live_ended = False
@@ -37,12 +35,22 @@ class EplusFD(HlsFD):
             self.report_error('Cannot resume a live Streaming+ download; use a different output filename')
             return False
 
-        # Concurrent fragment downloads eagerly consume the iterable
-        self.params['concurrent_fragment_downloads'] = 1
-        ctx = {'filename': filename, 'live': True, 'total_frags': None}
-        self._prepare_and_start_frag_download(ctx, info_dict)
-        return self.download_and_append_fragments(
-            ctx, self._live_fragments(info_dict), info_dict, is_fatal=lambda _: True)
+        orig_params = self.params
+        # External downloaders receive the cookies only once, when they start;
+        # concurrent fragment downloads eagerly consume the live generator.
+        self.params = {
+            **orig_params,
+            'external_downloader': 'native',
+            'concurrent_fragment_downloads': 1,
+        }
+        try:
+            ctx = {'filename': filename, 'live': True, 'total_frags': None}
+            self._prepare_and_start_frag_download(ctx, info_dict)
+            return self.download_and_append_fragments(
+                ctx, self._live_fragments(info_dict), info_dict, is_fatal=lambda _: True)
+        finally:
+            self.params = orig_params
+
 
     def _refresh_authentication(self, info_dict):
         with self._auth_lock:
@@ -70,10 +78,12 @@ class EplusFD(HlsFD):
                         'Streaming+ viewing session is no longer valid; re-extract the video', expected=True)
                 if info_dict.get('_eplus_limited_viewing') and not status.get('cvd'):
                     raise ExtractorError('The Streaming+ viewing period has expired', expected=True)
-                if info_dict.get('is_live'):
-                    self._live_ended = traverse_obj(status, ('stream', 'delivery_status')) in (
+                live_ended = bool(info_dict.get('is_live')) and traverse_obj(
+                    status, ('stream', 'delivery_status')) in (
                         'STOPPED', 'WAIT_CONFIRM_ARCHIVED', 'CONFIRMED_ARCHIVE')
+                self._live_ended = live_ended
                 self._last_refresh = time.monotonic()
+                return
             if retry_manager.error:
                 raise DownloadError('Unable to refresh Streaming+ authentication')
 
@@ -113,7 +123,9 @@ class EplusFD(HlsFD):
             if not target_duration:
                 raise DownloadError('Invalid Streaming+ live HLS playlist')
             if next_sequence is not None and sequence > next_sequence:
-                raise DownloadError(f'Streaming+ live segments {next_sequence}-{sequence - 1} are no longer available')
+                self.report_warning(
+                    f'Streaming+ live segments {next_sequence}-{sequence - 1} are no longer available; continuing')
+                next_sequence = sequence
 
             fragments = self._get_fragments(manifest, man_url, info_dict, {'fragment_index': 0, 'live': True})
             if fragments is False:
