@@ -1,5 +1,5 @@
-if "%PY%" EQU "" set PY=python3
-%PY% --version 2>NUL || set PY=py
+if "%PY%" EQU "" set PY=py
+%PY% --version 2>NUL || set PY=python3
 %PY% --version || exit 1
 
 %PY% -m pip install -U --pre "yt-dlp[default]"
