@@ -51,7 +51,6 @@ class EplusFD(HlsFD):
         finally:
             self.params = orig_params
 
-
     def _refresh_authentication(self, info_dict):
         with self._auth_lock:
             if time.monotonic() - self._last_refresh < self._REFRESH_INTERVAL:
