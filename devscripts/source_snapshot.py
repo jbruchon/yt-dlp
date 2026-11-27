@@ -3,6 +3,7 @@ import hashlib
 import io
 import json
 import os
+import sys
 import subprocess
 
 
@@ -72,5 +73,5 @@ def verify_snapshot(root, manifest):
         if (target.is_symlink() or not target.is_file()
                 or target.stat().st_size != size or hashlib.sha256(target.read_bytes()).hexdigest() != digest):
             raise ValueError(f'source snapshot mismatch: {path!r}')
-        if os.name != 'nt' and bool(target.stat().st_mode & 0o111) != (mode == '100755'):
+        if sys.platform != 'cygwin' and os.name != 'nt' and bool(target.stat().st_mode & 0o111) != (mode == '100755'):
             raise ValueError(f'source mode mismatch: {path!r}')

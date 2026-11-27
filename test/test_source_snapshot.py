@@ -74,7 +74,7 @@ class TestSourceSnapshot(unittest.TestCase):
             self.assertIn('assert False', result.stdout)
             self.assertNotIn('OPT source/coverage receipt:', result.stdout)
 
-    @unittest.skipIf(os.name == 'nt', 'POSIX executable bit')
+    @unittest.skipIf(os.name == 'nt' or sys.platform == 'cygwin', 'POSIX executable bit')
     def test_committed_mode(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
