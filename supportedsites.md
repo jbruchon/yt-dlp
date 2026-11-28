@@ -184,6 +184,7 @@ The only reliable way to check if a site is supported is to try it.
  - **blerp**
  - **blogger.com**
  - **Bloomberg**
+ - **BlueBillywig**
  - **Bluesky**
  - **BongaCams**
  - **Boosty**
@@ -225,6 +226,8 @@ The only reliable way to check if a site is supported is to try it.
  - **canalc2.tv**
  - **Canalplus**: mycanal.fr and piwiplus.fr
  - **Canalsurmas**
+ - **CanariasPlay**
+ - **CanariasPlayCategory**
  - **CaracolTvPlay**: [*caracoltv-play*](## "netrc machine")
  - **cbc.ca**
  - **cbc.ca:listen**
@@ -391,6 +394,12 @@ The only reliable way to check if a site is supported is to try it.
  - **EroProfile:album**
  - **ERRArhiiv**
  - **ERRJupiter**
+ - **ertecho:category**
+ - **ertecho:live**
+ - **ertecho:ondemand**
+ - **ertecho:podcast**
+ - **ertecho:show**
+ - **ertecho:tag**
  - **ertflix**: ERTFLIX videos
  - **ertflix:codename**: ERTFLIX videos by codename
  - **ertwebtv:embed**: ert.gr webtv embedded videos
@@ -638,6 +647,9 @@ The only reliable way to check if a site is supported is to try it.
  - **Kika**: KiKA.de
  - **KikaPlaylist**
  - **KinoPoisk**
+ - **knowledge.ca**
+ - **knowledge.ca:collection**
+ - **knowledge.ca:program**
  - **Kommunetv**
  - **KompasVideo**
  - **KrasView**: Красвью (**Currently broken**)
@@ -689,6 +701,7 @@ The only reliable way to check if a site is supported is to try it.
  - **LiTV**
  - **LiveJournal**: (**Currently broken**)
  - **Livestreamfails**
+ - **Livid**
  - **Lnk**
  - **loc**: Library of Congress
  - **Locipo**
@@ -954,6 +967,7 @@ The only reliable way to check if a site is supported is to try it.
  - **Omnyfm**
  - **OmnyfmPlaylist**
  - **OmnyfmShow**
+ - **OmroepFlevoland**
  - **on24**: ON24
  - **OnDemandChinaEpisode**
  - **OnDemandKorea**
@@ -1016,6 +1030,8 @@ The only reliable way to check if a site is supported is to try it.
  - **Pinkbike**
  - **Pinterest**
  - **PinterestCollection**
+ - **PixabaySoundMusic**
+ - **PixabayVideos**
  - **Platzi**: [*platzi*](## "netrc machine")
  - **PlatziCourse**: [*platzi*](## "netrc machine")
  - **play.tv**: [*goplay*](## "netrc machine") PLAY (formerly goplay.be)
@@ -1084,12 +1100,15 @@ The only reliable way to check if a site is supported is to try it.
  - **QuantumTVRecordings**: [*quantumtv*](## "netrc machine")
  - **R7**: (**Currently broken**)
  - **R7Article**: (**Currently broken**)
+ - **RacingTV**
  - **Radiko**
  - **RadikoRadio**
  - **radio.de**: (**Currently broken**)
  - **Radio1Be**
  - **radiocanada**
  - **radiocanada:audiovideo**
+ - **radiocanada:​ohdio:balados**
+ - **radiocanada:​ohdio:livres-audio**
  - **radiofrance**
  - **RadioFranceLive**
  - **RadioFrancePodcast**
@@ -1743,4 +1762,3 @@ The only reliable way to check if a site is supported is to try it.
  - **zoom**
  - **zoom:clips**
  - **Zype**
- - **generic**: Generic downloader that works on some sites

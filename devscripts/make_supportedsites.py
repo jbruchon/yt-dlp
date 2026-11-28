@@ -23,8 +23,16 @@ The only reliable way to check if a site is supported is to try it.
 
 
 def main():
-    out = '\n'.join(ie.description() for ie in list_extractor_classes() if ie.IE_DESC is not False)
-    write_file(get_filename_args(), TEMPLATE.format(ie_list=out))
+    seen = set()
+    lines = []
+    for ie in list_extractor_classes():
+        if ie.IE_DESC is False:
+            continue
+        desc = ie.description()
+        if desc not in seen:
+            seen.add(desc)
+            lines.append(desc)
+    write_file(get_filename_args(), TEMPLATE.format(ie_list='\n'.join(lines)))
 
 
 if __name__ == '__main__':
