@@ -3,6 +3,7 @@ import os
 import shutil
 import sys
 import unittest
+import yt_dlp.extractor.generic as generic_mod
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,11 +25,14 @@ from yt_dlp.globals import (
     postprocessors,
     plugin_dirs,
     plugin_ies,
+    plugin_ies_overrides,
     plugin_pps,
     all_plugins_loaded,
     plugin_specs,
 )
 
+_ORIG_GENERIC_IE = generic_mod.GenericIE
+_ORIG_GENERIC_OVERRIDES = list(plugin_ies_overrides.value.get(_ORIG_GENERIC_IE, ()))
 
 EXTRACTOR_PLUGIN_SPEC = PluginSpec(
     module_name='extractor',
@@ -57,6 +61,9 @@ def reset_plugins():
             if module_name.startswith(f'{PACKAGE_NAME}.{plugin_type}.'):
                 del sys.modules[module_name]
 
+    generic_mod.GenericIE = _ORIG_GENERIC_IE
+    if _ORIG_GENERIC_IE in plugin_ies_overrides.value:
+        plugin_ies_overrides.value[_ORIG_GENERIC_IE] = list(_ORIG_GENERIC_OVERRIDES)
     importlib.invalidate_caches()
 
 
